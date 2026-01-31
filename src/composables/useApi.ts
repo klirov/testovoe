@@ -8,7 +8,7 @@ export function useApi() {
     const error = ref<unknown>(null)
     const status = ref<number | null>(null)
 
-    async function request<T>(url: string, init?: RequestInit) {
+    async function request<T>(url: string, init?: RequestInit): Promise<T> {
         isLoading.value = true
         isSuccess.value = false
         isError.value = false
