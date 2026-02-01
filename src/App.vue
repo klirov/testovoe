@@ -1,32 +1,48 @@
 <template>
-    <div>
-        <div id="use-form">
-            <form>
-                <h2>Тестовая форма регистрации:</h2>
+    <div class="p-6 font-sans space-y-12">
+        <div class="max-w-sm space-y-4">
+            <form class="flex flex-col gap-3">
+                <h2 class="text-lg font-semibold">Тестовая форма регистрации:</h2>
                 <div>
-                    <p v-if="dirty.email && errors.email">{{ errors.email }}</p>
-                    <input type="email" v-model="form.email" />
+                    <p v-if="dirty.email && errors.email" class="mb-1 text-sm text-red-600">
+                        {{ errors.email }}
+                    </p>
+                    <input
+                        type="email"
+                        v-model="form.email"
+                        class="w-full rounded border border-gray-300 px-3 py-2 focus:border-gray-500 focus:outline-none"
+                    />
                 </div>
                 <div>
-                    <p v-if="dirty.password && errors.password">{{ errors.password }}</p>
-                    <input type="password" v-model="form.password" />
+                    <p v-if="dirty.password && errors.password" class="mb-1 text-sm text-red-600">
+                        {{ errors.password }}
+                    </p>
+                    <input
+                        type="password"
+                        v-model="form.password"
+                        class="w-full rounded border border-gray-300 px-3 py-2 focus:border-gray-500 focus:outline-none"
+                    />
                 </div>
-                <button @click.prevent="validateForm">Провалидировать форму</button>
+                <button @click.prevent="validateForm" class="mt-2 rounded bg-gray-200 transition">
+                    Провалидировать форму
+                </button>
             </form>
 
-            <h3 v-if="validated && isValid">Form is valid!</h3>
+            <h3 v-if="validated && isValid" class="text-sm text-green-700 font-medium">
+                Form is valid!
+            </h3>
         </div>
-        <div id="use-api">
-            <h1>Posts</h1>
+        <div class="space-y-4">
+            <h1 class="text-2xl font-bold">Posts</h1>
 
-            <p v-if="isLoading">Loading posts...</p>
+            <p v-if="isLoading" class="text-gray-600">Loading posts...</p>
 
-            <p v-if="isError">Error loading posts: {{ `HTTP${status}: ${error}` }}</p>
+            <p v-if="isError" class="text-red-600">Error loading posts: {{ `HTTP${status}: ${error}` }}</p>
 
-            <ul v-if="isSuccess">
-                <li v-for="post in data" :key="post.id">
-                    <h3>{{ post.title }}</h3>
-                    <p>{{ post.body }}</p>
+            <ul v-if="isSuccess" class="space-y-4">
+                <li v-for="post in data" :key="post.id" class="rounded border border-gray-200 p-4">
+                    <h3 class="font-semibold">{{ post.title }}</h3>
+                    <p class="text-sm text-gray-700">{{ post.body }}</p>
                 </li>
             </ul>
         </div>
@@ -67,55 +83,3 @@ const ruleForPassword: Rule = (value) => {
     }
 }
 </script>
-<style scoped>
-* {
-    font-family: Inter, sans-serif;
-}
-#use-form {
-    max-width: 360px;
-    margin-bottom: 32px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-input {
-    width: 100%;
-    padding: 8px 10px;
-    border: 1px solid #d0d0d0;
-    border-radius: 4px;
-}
-
-input:focus {
-    outline: none;
-    border-color: #888;
-}
-
-p {
-    margin: 0 0 4px;
-    font-size: 13px;
-    color: #c0392b;
-}
-
-button {
-    margin-top: 8px;
-    padding: 8px 10px;
-    border: none;
-    border-radius: 4px;
-    background: #eee;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #e0e0e0;
-}
-
-h3 {
-    margin-top: 12px;
-    font-size: 14px;
-    color: #2e7d32;
-}
-</style>
